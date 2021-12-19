@@ -36,3 +36,15 @@ let pokemonList = [
         pokedexNumber: '#132'
     }
 ];
+
+// for loop that displays all pokemons of pokemonList with name an height
+for (let i=0; i < pokemonList.length; i++){
+    document.write(pokemonList[i].name + 
+    ' (' + 'height: ' + 
+    pokemonList[i].height + ')'+ ("<br>"));
+// conditional for pokemon with a heigth more than 1.9
+    if (pokemonList[i].height > 1.9){
+        document.write(' -' + 'Wow, that\'s big! ');
+    }
+  }
+
