@@ -1,49 +1,11 @@
 let pokemonRepository = (function () {
-    let pokemonList = [
-        {
-            name: 'Venomoth',
-            type: ['bug', 'poison'],
-            height: 1.5,
-            pokedexNumber: '#49'
-        },
-        {
-            name: 'Mr. Mime',
-            type: ['psychic', 'fairy'],
-            height: 1.3,
-            pokedexNumber: '#122'
-        },
-        {
-            name: 'Tyranitar',
-            type: ['dark', 'rock'],
-            height: 2,
-            pokedexNumber: '#248'
-        },
-        {
-            name: 'Scizor',
-            type: ['steel', 'bug'],
-            height: 1.8,
-            pokedexNumber: '#212'
-        },
-        {
-            name: 'Jigglypuff',
-            type: ['fairy', 'normal'],
-            height: 0.5,
-            pokedexNumber: '#39'
-        },
-        {
-            name: 'Ditto',
-            type: 'normal',
-            height: 0.3,
-            pokedexNumber: '#132'
-        }
-    ];
+    let pokemonList = [];
+    let apiURL = 'https://pokeapi.co/api/v2/pokemon/?limit=150';
 
     function add(pokemon) {
         if (
             typeof pokemon === 'object' &&
-            'name' in pokemon &&
-            'type' in pokemon &&
-            'height' in pokemon
+            'name' in pokemon
         )   {
             pokemonList.push(pokemon);
         }   else {
@@ -75,31 +37,60 @@ let pokemonRepository = (function () {
         });
     }
 
+    
+
+    function loadList() {
+        return fetch(apiURL).then(function (response) {
+            return response.json();
+        }).then(function (json) {
+            json.results.forEach(function (item) {
+                let pokemon = {
+                    name: item.name,
+                    detailsURL: item.url
+                };
+                add(pokemon);
+            });
+        }).catch(function (e) {
+            console.error(e);
+        })
+    }
+
+    function loadDetails(item) {
+        let url = item.detailsURL;
+        return fetch(url).then(function (response) {
+            return response.json();
+        }).then(function (details) {
+            item.imageURL = details.sprites.front_default;
+            item.height = details.height;
+            item.types = details.types;
+        }).catch(function (e) {
+            console.error(e);
+        })
+    }
 
     function showDetails(pokemon) {
-        console.log(pokemon);
-    };
+        loadDetails(pokemon).then(function () {
+            console.log(pokemon);
+        });
+        
+    }
 
     return {
         add: add,
         getAll: getAll,
-        addListItem: addListItem
+        addListItem: addListItem,
+        loadList: loadList,
+        loadDetails: loadDetails,
+        showDetails: showDetails
     };
 
 })();
 
 
-pokemonRepository.add({
-    name: 'Blitzle',
-    type: 'electric',
-    height: 0.8,
-    pokedexNumber: '#522'
-});
-
-
 
 // forEach loop to iterate over the pokemon in pokemonList
-
-pokemonRepository.getAll().forEach(function(pokemon) {
-    pokemonRepository.addListItem(pokemon);
+pokemonRepository.loadList().then(function() {
+    pokemonRepository.getAll().forEach(function(pokemon) {
+        pokemonRepository.addListItem(pokemon);
+    });
 });
