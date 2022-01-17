@@ -1,8 +1,8 @@
 ### Pokedex-App
 
-This a web app I wrote in Full Stack Development Course with CareerFoundry.
+This is a web app I wrote in Full Stack Development Course at CareerFoundry.
 
-### Built with
+### Built with:
 
 - HTML
 - CSS
@@ -10,7 +10,7 @@ This a web app I wrote in Full Stack Development Course with CareerFoundry.
 - jQuery
 - Bootstrap
 
-### Description
+### Description:
 
 The pokedex-app loads data from external PokéAPI and shows details of Pokemons by click in a modal.  
 The user also can search live for a specific Pokemon.
