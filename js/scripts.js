@@ -161,7 +161,6 @@ let pokemonRepository = (function () {
         modalContainer.classList.remove('is-visible');
       }
       
-      
 
       window.addEventListener('keydown', (e) => {
           let modalContainer = document.querySelector('#modal-container');
@@ -176,6 +175,9 @@ let pokemonRepository = (function () {
               hideModal();
           }
       });
+
+
+      // function for searching through pokemons
 
       $(document).ready(function(){
         $("#search-pokemon").on("keyup", function() {
