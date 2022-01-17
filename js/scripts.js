@@ -177,11 +177,10 @@ let pokemonRepository = (function () {
           }
       });
 
-
       $(document).ready(function(){
-        $(".search-pokemon").on("input", function() {
+        $("#search-pokemon").on("keyup", function() {
           var value = $(this).val().toLowerCase();
-          $(".btn").filter(function() {
+          $(".button-class").filter(function() {
             $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
           });
         });
