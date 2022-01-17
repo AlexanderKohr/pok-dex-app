@@ -81,7 +81,7 @@ h1 {
   width: 200px;
   height: 200px;
   text-transform: capitalize;
-    
+  border-radius: 2%;
   }
 
   .button-class:hover {
